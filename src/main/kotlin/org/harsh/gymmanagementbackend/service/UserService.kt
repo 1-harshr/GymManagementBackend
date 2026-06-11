@@ -6,15 +6,19 @@ import org.harsh.gymmanagementbackend.dto.UserResponse
 import org.harsh.gymmanagementbackend.mapper.toEntity
 import org.harsh.gymmanagementbackend.mapper.toResponse
 import org.harsh.gymmanagementbackend.repository.UserRepository
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
-class UserService(private val userRepository: UserRepository) {
+class UserService(
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder
+) {
 
     fun create(request: CreateUserRequest): UserResponse =
-        userRepository.save(request.toEntity()).toResponse()
+        userRepository.save(request.toEntity(passwordEncoder.encode(request.password)!!)).toResponse()
 
     @Transactional
     fun update(id: UUID, request: UpdateUserRequest): UserResponse {

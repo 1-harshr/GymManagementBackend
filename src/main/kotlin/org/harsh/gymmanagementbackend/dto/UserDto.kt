@@ -21,6 +21,9 @@ data class CreateUserRequest(
     @field:Pattern(regexp = "^[+]?[0-9]{7,15}$", message = "Phone number must be valid")
     val phoneNumber: String,
 
+    @field:NotBlank(message = "Password is required")
+    val password: String,
+
     @field:NotNull(message = "Blood group is required")
     val bloodGroup: BloodGroup,
 

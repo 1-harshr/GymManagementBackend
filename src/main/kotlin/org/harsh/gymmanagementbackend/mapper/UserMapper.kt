@@ -4,10 +4,11 @@ import org.harsh.gymmanagementbackend.dto.CreateUserRequest
 import org.harsh.gymmanagementbackend.dto.UserResponse
 import org.harsh.gymmanagementbackend.entity.UserEntity
 
-fun CreateUserRequest.toEntity() = UserEntity(
+fun CreateUserRequest.toEntity(encodedPassword: String) = UserEntity(
     name = name,
     email = email,
     phoneNumber = phoneNumber,
+    password = encodedPassword,
     bloodGroup = bloodGroup,
     role = role
 )

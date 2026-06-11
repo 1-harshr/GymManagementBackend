@@ -21,6 +21,9 @@ class UserEntity(
     @Column(nullable = false)
     var phoneNumber: String,
 
+    @Column(nullable = false)
+    var password: String,
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     var bloodGroup: BloodGroup,
