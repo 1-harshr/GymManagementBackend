@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Email
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.Pattern
 import org.harsh.gymmanagementbackend.entity.UserRole
-import java.time.OffsetDateTime
 
 data class CreateUserRequest(
     @field:NotBlank(message = "Name is required")
@@ -34,13 +33,4 @@ data class UpdateUserRequest(
     val email: String? = null,
 
     val userRole: UserRole? = null
-)
-
-data class UserResponse(
-    val userId: Long,
-    val name: String,
-    val phoneNumber: String,
-    val email: String?,
-    val createdAt: OffsetDateTime,
-    val userRole: UserRole
 )
