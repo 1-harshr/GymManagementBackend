@@ -6,6 +6,7 @@ import org.harsh.gymmanagementbackend.dto.PlanResponse
 import org.harsh.gymmanagementbackend.dto.UpdatePlanRequest
 import org.harsh.gymmanagementbackend.service.PlanService
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.security.core.Authentication
 import org.springframework.web.bind.annotation.*
 
@@ -21,12 +22,14 @@ class PlansController(private val planService: PlanService) {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyRole('ADMIN', 'GOD')")
     fun create(
         @Valid @RequestBody request: CreatePlanRequest,
         authentication: Authentication
     ): PlanResponse = planService.create(request, authentication.name)
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'GOD')")
     fun update(
         @PathVariable id: Long,
         @Valid @RequestBody request: UpdatePlanRequest

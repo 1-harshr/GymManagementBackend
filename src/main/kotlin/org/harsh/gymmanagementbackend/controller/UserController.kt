@@ -1,15 +1,17 @@
 package org.harsh.gymmanagementbackend.controller
 
+import jakarta.validation.Valid
 import org.harsh.gymmanagementbackend.dto.CreateUserRequest
 import org.harsh.gymmanagementbackend.dto.UpdateUserRequest
 import org.harsh.gymmanagementbackend.dto.UserResponse
 import org.harsh.gymmanagementbackend.service.UserService
-import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/api/users")
+@PreAuthorize("hasAnyRole('ADMIN', 'GOD')")
 class UserController(private val userService: UserService) {
 
     @GetMapping
