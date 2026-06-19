@@ -9,7 +9,6 @@ import org.harsh.gymmanagementbackend.repository.UserRepository
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
 
 @Service
 class UserService(
@@ -21,25 +20,24 @@ class UserService(
         userRepository.save(request.toEntity(passwordEncoder.encode(request.password)!!)).toResponse()
 
     @Transactional
-    fun update(id: UUID, request: UpdateUserRequest): UserResponse {
+    fun update(id: Long, request: UpdateUserRequest): UserResponse {
         val user = userRepository.findById(id)
             .orElseThrow { NoSuchElementException("User $id not found") }
         request.name?.let { user.name = it }
-        request.email?.let { user.email = it }
         request.phoneNumber?.let { user.phoneNumber = it }
-        request.bloodGroup?.let { user.bloodGroup = it }
-        request.role?.let { user.role = it }
+        request.email?.let { user.email = it }
+        request.userRole?.let { user.userRole = it }
         return user.toResponse()
     }
 
-    fun delete(id: UUID) {
+    fun delete(id: Long) {
         if (!userRepository.existsById(id)) throw NoSuchElementException("User $id not found")
         userRepository.deleteById(id)
     }
 
     fun getAll(): List<UserResponse> = userRepository.findAll().map { it.toResponse() }
 
-    fun getById(id: UUID): UserResponse = userRepository.findById(id)
+    fun getById(id: Long): UserResponse = userRepository.findById(id)
         .orElseThrow { NoSuchElementException("User $id not found") }
         .toResponse()
 }

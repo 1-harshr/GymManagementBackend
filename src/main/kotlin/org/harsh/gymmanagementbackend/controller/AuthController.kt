@@ -23,9 +23,9 @@ class AuthController(
     @PostMapping("/login")
     fun login(@Valid @RequestBody request: LoginRequest): AuthResponse {
         authenticationManager.authenticate(
-            UsernamePasswordAuthenticationToken(request.email, request.password)
+            UsernamePasswordAuthenticationToken(request.phoneNumber, request.password)
         )
-        val userDetails = userDetailsService.loadUserByUsername(request.email)
+        val userDetails = userDetailsService.loadUserByUsername(request.phoneNumber)
         return AuthResponse(token = jwtService.generateToken(userDetails))
     }
 }

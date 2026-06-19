@@ -2,37 +2,33 @@ package org.harsh.gymmanagementbackend.entity
 
 import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
-import java.time.LocalDate
-import java.util.UUID
+import java.time.OffsetDateTime
 
 @Entity
 @Table(name = "users")
 class UserEntity(
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    val id: UUID = UUID.randomUUID(),
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    val userId: Long = 0,
 
     @Column(nullable = false)
     var name: String,
 
     @Column(nullable = false, unique = true)
-    var email: String,
-
-    @Column(nullable = false)
     var phoneNumber: String,
 
-    @Column(nullable = false)
-    var password: String,
+    @Column(nullable = true)
+    var email: String? = null,
+
+    @Column(nullable = false, name = "password")
+    var hashedPassword: String,
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    var bloodGroup: BloodGroup,
+    @Column(name = "user_role", nullable = false)
+    var userRole: UserRole = UserRole.MEMBER,
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    var joinedDate: LocalDate = LocalDate.now(),
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    var role: UserRole = UserRole.USER
+    @Column(name = "created_at", nullable = false, updatable = false)
+    var createdAt: OffsetDateTime = OffsetDateTime.now()
 )

@@ -6,19 +6,17 @@ import org.harsh.gymmanagementbackend.entity.UserEntity
 
 fun CreateUserRequest.toEntity(encodedPassword: String) = UserEntity(
     name = name,
-    email = email,
     phoneNumber = phoneNumber,
-    password = encodedPassword,
-    bloodGroup = bloodGroup,
-    role = role
+    email = email,
+    hashedPassword = encodedPassword,
+    userRole = userRole
 )
 
 fun UserEntity.toResponse() = UserResponse(
-    id = id,
+    userId = userId,
     name = name,
-    email = email,
     phoneNumber = phoneNumber,
-    bloodGroup = bloodGroup,
-    joinedDate = joinedDate,
-    role = role
+    email = email,
+    createdAt = createdAt,
+    userRole = userRole
 )
