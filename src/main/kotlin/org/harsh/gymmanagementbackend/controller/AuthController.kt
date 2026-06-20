@@ -26,6 +26,7 @@ class AuthController(
             UsernamePasswordAuthenticationToken(request.phoneNumber, request.password)
         )
         val userDetails = userDetailsService.loadUserByUsername(request.phoneNumber)
-        return AuthResponse(token = jwtService.generateToken(userDetails))
+        val role = userDetails.authorities.first().authority!!.removePrefix("ROLE_")
+        return AuthResponse(token = jwtService.generateToken(userDetails), role = role)
     }
 }

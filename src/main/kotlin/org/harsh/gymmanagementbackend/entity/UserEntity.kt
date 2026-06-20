@@ -21,7 +21,7 @@ class UserEntity(
     @Column(nullable = true)
     var email: String? = null,
 
-    @Column(nullable = false, name = "password")
+    @Column(nullable = false, name = "hashed_password")
     var hashedPassword: String,
 
     @Enumerated(EnumType.STRING)
